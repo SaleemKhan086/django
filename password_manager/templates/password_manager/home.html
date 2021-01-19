@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+password manager home
+{% endblock %}
+{% block content %}
+<p>
+Hello! you will see home page here!!<br />
+<a href="{% url 'password_manager:all' %}">Click Here</a> to see your all passwords
+<br />
+OR
+<br />
+<a href="{% url 'password_manager:add_new' %}">Add a new login</a>
+</p>
+<button type="button" onclick="window.location.href='{% url 'logout' %}?next={% url 'login' %}'">logout</button>
+<input type="hidden" name="next" value="{{request.url}}">
+{% endblock %}

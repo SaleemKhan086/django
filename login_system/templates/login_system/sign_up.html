@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>sign up page</title>
+  </head>
+  <body>
+    {% if form.errors %}
+    {{form.errors}}
+    {% endif %}
+    <form class=""  method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" name="" value="Sign up">
+    </form>
+
+    <p>Or you can<a href="{% url 'login' %}"> Login</a></p>
+  </body>
+</html>

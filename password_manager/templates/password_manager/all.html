@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% if password_list %}
+<ul>
+{% for item in password_list %}
+<li>
+	<strong>{{item.nick_name}}</strong><br />
+	username: {{item.username}}
+	<a href="{% url 'password_manager:detail' item.id%}"> view</a>
+</li>
+{% endfor %}
+</ul>
+{% else %}
+	<h2>no passwords to show</h2>
+{% endif %}
+<p>
+	<a href="{% url 'password_manager:home' %}">Home page</a>
+</p>
+{% endblock %}

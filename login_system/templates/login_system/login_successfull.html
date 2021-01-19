@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Logged in</title>
+  </head>
+  <body>
+    <h2> Successfully logged in as {{ user.username }}</h2>
+    Do you want to change your password? <a href="{% url 'password_change' %}">Click Here</a>
+    <a href="{% url 'logout' %}?next={% url 'homepage' %}">Logout</a>
+  </body>
+</html>

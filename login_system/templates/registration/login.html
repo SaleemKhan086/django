@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+  </head>
+  <body>
+    <h1>Login here.</h1>
+    <form class=""  method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" name="" value="login">
+      {% if next %}
+   	  <input type="hidden" name="next" value={{next}}>
+	    {% else %}
+      <input type="hidden" name="next" value="{% url 'homepage' %}">
+      {% endif %}
+    </form>
+    <p>Dont have account? <a href="{% url 'sign_up' %}">Sign up</a> </p>
+    <p><a href="{% url 'password_reset' %}">Forgot Password</a></p>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Please Log in
+{% endblock %}
+
+{% block content %}
+<p>
+Please Login to view this page!!
+</p>
+<a href="{% url 'login' next='password_manager:home'%}">Login</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} homepage {% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<p>
+Welcome! you are logged in as {{user.username}}
+</p>
+<button type="button" onclick='window.location.href="{% url 'logout' %}?next={%url 'homepage'%}"' >Log out</button>
+{% else %}
+<p>
+You are not logged in,to see the login required pages, please login or sign up using below links:
+<br>
+<button type="button" onclick= "window.location.href='{% url "login" %}'" >Login</button><br>OR<br>
+<button type="button" onclick='window.location.href="{% url 'sign_up' %}"' >SignUp</button>
+<br><br>
+{% endif %}
+<ul>
+<li><a href="{% url 'email_sender' %}">Email Sender Application </a>(no login required)</li>
+<li><a href="{% url 'password_manager:home' %}">Password manager </a>(login required)</li>
+</ul>
+{% endblock %}

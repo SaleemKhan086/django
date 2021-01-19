@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Add new record {% endblock %}
+{% block content %}
+<script type="text/javascript">
+  function goBack(){
+    window.location.href="{% url 'password_manager:home' %}";
+  }
+</script>
+<form method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="add">
+<button type="button" name="button" onclick="goBack()">Cancel</button>
+</form>
+{% endblock %}

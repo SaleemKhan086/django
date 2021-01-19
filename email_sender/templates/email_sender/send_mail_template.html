@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Email Sender</title>
+  </head>
+  <body>
+    <form method="post">
+      {% if error is not None %}
+      <p style="color:red">{{ error }}</p>
+      {% endif %}
+      {% csrf_token %}
+      <label for="to">Recepient's address: </label>
+      <input type="email" name="to_address" id="to" placeholder="Enter recepient's address" required>
+      <br><br>
+      <label for="subject">Subject: </label>
+      <input type="text" name="subject" id="subject" required>
+      <br>
+      <label for="message">Message: </label><br>
+      <textarea name="message" id="message" rows="20" cols="50"></textarea>
+      <br>
+      <input type="submit" name="" value="send">
+    </form>
+
+  </body>
+</html>
