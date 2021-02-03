@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>todo app</title>
+    <script type="text/javascript">
+      function stateChangeHandler(cb){
+        if(cb.checked)
+        {
+          var item = document.getElementById(cb.value);
+          var dataNode = item.children[1];
+          var newChild = document.createElement("del");
+          newChild.innerHTML = dataNode.innerHTML;
+          dataNode.innerHTML = "";
+          dataNode.appendChild(newChild);
+        }
+        else {
+          var item = document.getElementById(cb.value);
+          var dataNode = item.children[1];
+          var child = dataNode.children[0];
+          var txt = child.innerHTML;
+          dataNode.removeChild(child);
+          dataNode.innerHTML = txt;
+        }
+        return;
+      }
+      function deleteItem(id){
+        alert("delete "+id+" ?");
+        return;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Todo application coming soon here!!</h1>
+    <form class="" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="Add">
+    </form>
+    <ul>
+    {% for task in task_list %}
+      <li id="{{task.id}}" value="{{task.id}}" class="list-item">
+        <input type="checkbox" value="{{task.id}}" {%if task.finished %}checked{%endif%}
+        onclick="stateChangeHandler(this)" >
+        <div>{{task.heading}}</div>
+        <button onClick="deleteItem(this.value)" value="{{task.heading}}">delete task</button>
+      </li>
+    {% empty %}
+      <li>your task list is empty.</li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>

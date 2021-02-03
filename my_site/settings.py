@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+        'todo.apps.TodoConfig',
         'home.apps.HomeConfig',
         'password_manager.apps.PasswordManagerConfig',
         'login_system.apps.LoginSystemConfig',
@@ -120,7 +121,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+LOGIN_URL = '/login_system/login/'
 STATIC_URL = '/static/'
 
 #for using mail
