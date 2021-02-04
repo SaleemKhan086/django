@@ -3,11 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>todo app</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% csrf_token %}
     <script type="text/javascript">
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      function sendRequest(id,del=false){
+        $.ajax({
+          url:"http://127.0.0.1:8000/todo/",
+          method:"POST",
+          headers:{
+            'X-CSRFToken': csrfToken,
+          },
+          data:{
+            "id":id,
+            "delete":del,
+          },
+        });
+      }
       function stateChangeHandler(cb){
+        sendRequest(cb.value);
         if(cb.checked)
         {
-          var item = document.getElementById(cb.value);
+          var item = $("li").filter("#"+cb.value)[0];
           var dataNode = item.children[1];
           var newChild = document.createElement("del");
           newChild.innerHTML = dataNode.innerHTML;
@@ -15,7 +32,7 @@
           dataNode.appendChild(newChild);
         }
         else {
-          var item = document.getElementById(cb.value);
+          var item = $("li").filter("#"+cb.value)[0];
           var dataNode = item.children[1];
           var child = dataNode.children[0];
           var txt = child.innerHTML;
@@ -24,26 +41,47 @@
         }
         return;
       }
-      function deleteItem(id){
-        alert("delete "+id+" ?");
+      function deleteItem(id,heading){
+        if(confirm("delete "+heading+" ?"))
+        {
+          sendRequest(id,true);
+          $("li").filter("#"+id).remove();
+        }
         return;
       }
+      $(document).ready(function(){
+        $(".description").hide();
+        $(".heading").click(function(){
+          id=$(this).attr('id')
+          console.log(id);
+          $(".description").filter("#"+id).toggle();
+        });
+      });
     </script>
   </head>
   <body>
-    <h1>Todo application coming soon here!!</h1>
     <form class="" method="post">
       {% csrf_token %}
       {{form.as_p}}
       <input type="submit" value="Add">
     </form>
+    <h2>click on the task heading to view and hide description</h2>
     <ul>
     {% for task in task_list %}
       <li id="{{task.id}}" value="{{task.id}}" class="list-item">
         <input type="checkbox" value="{{task.id}}" {%if task.finished %}checked{%endif%}
         onclick="stateChangeHandler(this)" >
-        <div>{{task.heading}}</div>
-        <button onClick="deleteItem(this.value)" value="{{task.heading}}">delete task</button>
+        <div id="{{task.id}}" class="heading">
+          {% if task.finished %}
+          <del>{{task.heading}}</del>
+          {% else %}
+          {{task.heading}}
+          {% endif %}
+        </div>
+        <div id="{{task.id}}" class="description">
+          {{task.description}}
+        </div>
+        <button onClick="deleteItem(this.id,this.value)" id="{{task.id}}" value="{{task.heading}}">delete task</button>
       </li>
     {% empty %}
       <li>your task list is empty.</li>
