@@ -5,11 +5,36 @@
   function goBack(){
     window.location.href="{% url 'password_manager:home' %}";
   }
+  function show(){
+    e=document.getElementById("id_password");
+    b=document.getElementById("showPasswordBtn");
+    if(e.type=="password")
+    {
+      e.type="text";
+      b.innerHTML="hide";
+    }
+    else {
+      e.type="password";
+      b.innerHTML="show";
+    }
+  }
+  window.onload = function showPassword(){
+    e=document.getElementById("id_password")
+    if(e.type=="password")
+      e.type="text";
+    else e.type="password";
+    btn = document.createElement("button");
+    btn.innerHTML="show";
+    btn.setAttribute("onclick","show()");
+    btn.setAttribute("id","showPasswordBtn");
+    e.parentElement.appendChild(btn);
+  }
 </script>
-<form method="POST">
+<form method="POST" >
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="add">
 <button type="button" name="button" onclick="goBack()">Cancel</button>
 </form>
+
 {% endblock %}

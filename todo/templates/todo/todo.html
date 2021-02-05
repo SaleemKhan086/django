@@ -9,7 +9,7 @@
       const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
       function sendRequest(id,del=false){
         $.ajax({
-          url:"http://127.0.0.1:8000/todo/",
+          url:"{% url 'todo' %}",
           method:"POST",
           headers:{
             'X-CSRFToken': csrfToken,
@@ -87,5 +87,6 @@
       <li>your task list is empty.</li>
     {% endfor %}
     </ul>
+    <a href="{% url 'homepage' %}">Home page</a>
   </body>
 </html>

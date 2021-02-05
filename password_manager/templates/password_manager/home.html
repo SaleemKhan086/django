@@ -13,4 +13,7 @@ OR
 </p>
 <button type="button" onclick="window.location.href='{% url 'logout' %}?next={% url 'login' %}'">logout</button>
 <input type="hidden" name="next" value="{{request.url}}">
+<p>
+  <a href="{% url 'homepage' %}">Go to home page</a>
+</p>
 {% endblock %}
